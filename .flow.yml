@@ -1,0 +1,37 @@
+
+flows:
+  - name: default
+    language: nodejs
+    version: v6.6.0
+    env:
+      - FLOW_PROJECT_PATH=./,NODE_ENV=production
+
+    trigger:
+      push:
+        - master
+      pull_request: true
+
+    steps:
+      - name: Init
+        plugin:
+          name: nodejs_init
+
+      - name: Git Clone
+        plugin:
+          name: git
+
+      - name: Install
+        plugin:
+          name: nodejs_install
+
+      - name: Build
+        failure: true
+        scripts:
+          - npm run build
+
+    finalize:
+      email:
+        success:
+          - 935486956@qq.com
+        failure:
+          - 935486956@qq.com
